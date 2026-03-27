@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-blur bg-blur-1"></div>
+  <div class="bg-blur bg-blur-2"></div>
+
+  <!-- COVER -->
+  <section id="cover" class="cover">
+    <div class="cover-card">
+      <p class="eyebrow">The Wedding Invitation</p>
+      <h1 class="couple-names">Muhammad Aziz S.E &amp; Suci Ulfa S.Pd</h1>
+      <p class="cover-date">Sunday, 29 March 2026</p>
+
+      <p class="cover-quote">
+        "And among His signs is that He created for you spouses from among yourselves
+        so that you may find tranquility in them, and He has placed between you affection and mercy."
+      </p>
+      <p class="verse-ref">QS. Ar-Rum: 21</p>
+
+      <div class="guest-box">
+        <p class="guest-label">Kepada Yth.</p>
+        <h2 id="guest-name">Bapak / Ibu / Saudara / i</h2>
+        <p class="guest-subtext">Mohon maaf apabila ada kesalahan penulisan nama dan gelar.</p>
+      </div>
+
+      <button id="openBtn" class="primary-btn">Buka Undangan</button>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main id="mainContent" class="main-content hidden">
+    <section class="topbar">
+      <div>
+        <p class="eyebrow">Wedding Invitation</p>
+      </div>
+      <button id="musicToggle" class="secondary-btn">Music: Off</button>
+    </section>
+
+    <!-- HERO -->
+    <section class="section hero-section">
+      <div class="hero-text">
+        <p class="eyebrow">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+        <h2 class="section-title">We invite you to our wedding celebration</h2>
+        <p class="section-description">
+          Dengan penuh rasa syukur dan kebahagiaan, kami mengundang Bapak / Ibu / Saudara / i
+          untuk hadir dalam acara pernikahan kami.
+        </p>
+        <div class="guest-inline-box">
+          <span>Nama Tamu:</span>
+          <strong id="guest-name-inline">Bapak / Ibu / Saudara / i</strong>
+        </div>
+      </div>
+
+      <div class="hero-figure">
+        <div class="figure-placeholder">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="figure-text">
+            <p>Placeholder Couple Figure</p>
+            <span>Replace later with illustration or real photo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRIDE & GROOM -->
+    <section class="section">
+      <div class="section-header center">
+        <p class="eyebrow">Bride & Groom</p>
+        <h2 class="section-title">Without reducing respect, we invite you to our wedding ceremony</h2>
+      </div>
+
+      <div class="card-grid three-col">
+        <div class="info-card person-card">
+          <div class="mini-avatar">Bride</div>
+          <p class="card-label">Bride</p>
+          <h3>Suci Ulfa S.Pd</h3>
+          <p>Putri dari Bapak Nama Ayah &amp; Ibu Nama Ibu</p>
+        </div>
+
+        <div class="info-card center-card">
+          <h3>&amp;</h3>
+        </div>
+
+        <div class="info-card person-card">
+          <div class="mini-avatar">Groom</div>
+          <p class="card-label">Groom</p>
+          <h3>Muhammad Aziz S.E</h3>
+          <p>Putra dari Bapak Nama Ayah &amp; Ibu Nama Ibu</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="section">
+      <div class="section-header center">
+        <p class="eyebrow">Countdown</p>
+        <h2 class="section-title">Counting down to our special day</h2>
+      </div>
+
+      <div class="countdown-grid">
+        <div class="countdown-box">
+          <span id="days">0</span>
+          <small>Days</small>
+        </div>
+        <div class="countdown-box">
+          <span id="hours">0</span>
+          <small>Hours</small>
+        </div>
+        <div class="countdown-box">
+          <span id="minutes">0</span>
+          <small>Minutes</small>
+        </div>
+        <div class="countdown-box">
+          <span id="seconds">0</span>
+          <small>Seconds</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENT DETAILS -->
+    <section class="section">
+      <div class="section-header center">
+        <p class="eyebrow">Event Details</p>
+        <h2 class="section-title">Save the date</h2>
+      </div>
+
+      <div class="card-grid two-col">
+        <div class="info-card">
+          <p class="card-label">Akad Nikah</p>
+          <h3>Sunday, 29 March 2026</h3>
+          <p>08.00 WIB - Selesai</p>
+          <p class="location-label">Lokasi:</p>
+          <p>Lokasi akad nikah</p>
+          <a
+            class="map-link"
+            href="https://maps.app.goo.gl/xwbREiuL5MhrYyyv5"
+            target="_blank"
+          >
+            Lihat Lokasi
+          </a>
+        </div>
+
+        <div class="info-card">
+          <p class="card-label">Resepsi</p>
+          <h3>Sunday, 29 March 2026</h3>
+          <p>11.00 WIB - Selesai</p>
+          <p class="location-label">Lokasi:</p>
+          <p>Dusun Pulau Terap II Desa Pulau Terap Kuok</p>
+          <a
+            class="map-link"
+            href="https://maps.app.goo.gl/xwbREiuL5MhrYyyv5"
+            target="_blank"
+          >
+            Lihat Lokasi
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="section">
+      <div class="story-card">
+        <div class="story-text">
+          <p class="eyebrow">Our Story</p>
+          <h2 class="section-title">A beautiful beginning</h2>
+          <p class="section-description">
+            This is placeholder text. Later, you can replace this with your real story:
+            how you met, how your relationship grew, and your message to guests.
+          </p>
+          <p class="section-description">
+            Keep it warm, short, and sincere so the page feels personal.
+          </p>
+        </div>
+        <div class="story-visual">
+          <div class="mini-placeholder">Story Figure / Photo</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section">
+      <div class="section-header center">
+        <p class="eyebrow">Wedding Gallery</p>
+        <h2 class="section-title">Moments & placeholders</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item tall">Photo 1</div>
+        <div class="gallery-item">Photo 2</div>
+        <div class="gallery-item">Photo 3</div>
+        <div class="gallery-item">Photo 4</div>
+        <div class="gallery-item wide">Photo 5</div>
+      </div>
+    </section>
+
+    <!-- GIFT -->
+    <section class="section">
+      <div class="rsvp-card">
+        <div class="section-header">
+          <p class="eyebrow">Wedding Gift</p>
+          <h2 class="section-title">Your prayers are enough</h2>
+          <p class="section-description">
+            However, if giving is an expression of your love, you may send a gift.
+          </p>
+        </div>
+
+        <div class="gift-box">
+          <p class="card-label">Bank Transfer</p>
+          <h3>BNI</h3>
+          <p>Account Name: Muhammad Aziz</p>
+          <p>Account Number: 1234567890</p>
+          <button class="secondary-btn" type="button">Salin Rekening</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="section">
+      <div class="rsvp-card">
+        <div class="section-header">
+          <p class="eyebrow">Prayers & Greetings</p>
+          <h2 class="section-title">Send your wishes</h2>
+          <p class="section-description">
+            This is still a demo form. Later we can connect it to Google Sheets or Supabase.
+          </p>
+        </div>
+
+        <form id="rsvpForm" class="rsvp-form">
+          <input id="rsvpName" type="text" placeholder="Nama Anda" />
+          <select id="attendance">
+            <option value="Datang">Datang</option>
+            <option value="Tidak Hadir">Tidak Hadir</option>
+          </select>
+          <textarea id="message" placeholder="Tulis ucapan dan doa"></textarea>
+          <button type="submit" class="primary-btn">Kirim Ucapan</button>
+        </form>
+
+        <p id="rsvpStatus" class="rsvp-status"></p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p class="eyebrow">Thank You</p>
+      <h2 class="footer-title">Muhammad Aziz &amp; Suci Ulfa</h2>
+      <p class="footer-note">Kepada Yth.</p>
+      <p class="footer-guest" id="footer-guest-name">Bapak / Ibu / Saudara / i</p>
+    </footer>
+  </main>
+
+  <audio id="bgMusic" loop>
+    <source src="assets/music/background.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
