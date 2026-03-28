@@ -1,12 +1,18 @@
-// ======================================================
-// HOW THIS WORKS
-// guests.txt -> generate_links.py -> URL like:
-// https://your-site.pages.dev/?to=Ibnu%20Halim
-//
-// Then this script reads ?to=... and shows it on the page
-// ======================================================
-
 const DEFAULT_GUEST = "Bapak / Ibu / Saudara / i";
+const WEDDING_DATE = "2026-06-01";
+const WEDDING_TIME = "08:00:00";
+
+// Format date to Indonesian
+function formatTanggalIndonesia(dateString) {
+  const date = new Date(dateString);
+
+  return date.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+}
 
 // Read guest name from URL
 function getGuestName() {
@@ -20,17 +26,21 @@ function getGuestName() {
   return DEFAULT_GUEST;
 }
 
+// Apply guest name to page
 const guestName = getGuestName();
-
-// Put guest name in multiple places
 document.getElementById("guest-name").textContent = guestName;
 document.getElementById("guest-name-inline").textContent = guestName;
 document.getElementById("footer-guest-name").textContent = guestName;
 
-// Prefill RSVP name only if URL has real guest name
 if (guestName !== DEFAULT_GUEST) {
   document.getElementById("rsvpName").value = guestName;
 }
+
+// Apply Indonesian-formatted dates
+const tanggalFormatted = formatTanggalIndonesia(WEDDING_DATE);
+document.getElementById("cover-date").textContent = tanggalFormatted;
+document.getElementById("akad-date").textContent = tanggalFormatted;
+document.getElementById("resepsi-date").textContent = tanggalFormatted;
 
 // Open invitation logic
 const openBtn = document.getElementById("openBtn");
@@ -81,7 +91,7 @@ musicToggle.addEventListener("click", () => {
 });
 
 // Countdown
-const targetDate = new Date("2026-03-29T08:00:00").getTime();
+const targetDate = new Date(`${WEDDING_DATE}T${WEDDING_TIME}`).getTime();
 
 function updateCountdown() {
   const now = new Date().getTime();
@@ -109,7 +119,7 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// RSVP mock submit
+// RSVP demo submit
 const rsvpForm = document.getElementById("rsvpForm");
 const rsvpStatus = document.getElementById("rsvpStatus");
 
@@ -135,14 +145,15 @@ rsvpForm.addEventListener("submit", function (event) {
   });
 });
 
+// Scroll reveal animation
 const fadeElements = document.querySelectorAll(".fade-section");
 
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
       entry.target.classList.add("show");
     }
   });
 }, { threshold: 0.2 });
 
-fadeElements.forEach(el => observer.observe(el));
+fadeElements.forEach((el) => observer.observe(el));
