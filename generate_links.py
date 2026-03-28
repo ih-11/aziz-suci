@@ -1,7 +1,7 @@
 from pathlib import Path
 from urllib.parse import quote
 
-BASE_URL = "http://localhost:8000/"   # use this for testing first
+BASE_URL = "https://ha-ibnu.github.io/aziz-suci/"   # use this for testing first
 # BASE_URL = "https://aziz-suci-invitation.pages.dev/"   # use later after deploy
 
 guest_file = Path("guests.txt")
