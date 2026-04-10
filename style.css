@@ -5,14 +5,29 @@
 }
 
 :root {
-  --bg: #f6f1e8;
-  --card: rgba(255, 255, 255, 0.75);
-  --line: rgba(60, 46, 35, 0.1);
-  --text: #2e2a27;
-  --muted: #7a6e61;
-  --accent: #9b7b5a;
-  --accent-dark: #1f1f1f;
-  --shadow: 0 12px 40px rgba(41, 32, 24, 0.08);
+  --bg: #F8F1E7;
+  --card: rgba(255, 249, 243, 0.8);
+  --line: rgba(90, 70, 50, 0.08);
+
+  --text: #4d0f0f;
+  --muted: #8A766C;
+
+  --accent: #D8B7B0;      /* dusty pink */
+  --accent-soft: #EAD7D2;
+  --gold: #C9A46A;
+
+  --accent-dark: #3A2E2A;
+
+  --shadow: 0 12px 40px rgba(80, 60, 40, 0.08);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(216,183,176,0.15), transparent 40%),
+              radial-gradient(circle at 80% 60%, rgba(201,164,106,0.1), transparent 40%);
+  pointer-events: none;
 }
 
 html {
@@ -652,4 +667,11 @@ body {
   .primary-btn {
     width: 100%;
   }
+}
+
+.from-side {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
 }
