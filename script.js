@@ -2,7 +2,7 @@ const DEFAULT_GUEST = "Bapak / Ibu / Saudara / i";
 const WEDDING_DATE = "2026-06-01";
 const WEDDING_TIME = "08:00:00";
 
-// Format date to Indonesian
+// Format tanggal Indonesia
 function formatTanggalIndonesia(dateString) {
   const date = new Date(dateString);
 
@@ -14,7 +14,7 @@ function formatTanggalIndonesia(dateString) {
   });
 }
 
-// Read guest name from URL
+// Ambil nama tamu dari URL
 function getGuestName() {
   const params = new URLSearchParams(window.location.search);
   const name = params.get("to");
@@ -26,7 +26,7 @@ function getGuestName() {
   return DEFAULT_GUEST;
 }
 
-// Apply guest name to page
+// Terapkan nama tamu
 const guestName = getGuestName();
 document.getElementById("guest-name").textContent = guestName;
 document.getElementById("guest-name-inline").textContent = guestName;
@@ -36,13 +36,13 @@ if (guestName !== DEFAULT_GUEST) {
   document.getElementById("rsvpName").value = guestName;
 }
 
-// Apply Indonesian-formatted dates
+// Terapkan tanggal Indonesia
 const tanggalFormatted = formatTanggalIndonesia(WEDDING_DATE);
 document.getElementById("cover-date").textContent = tanggalFormatted;
 document.getElementById("akad-date").textContent = tanggalFormatted;
 document.getElementById("resepsi-date").textContent = tanggalFormatted;
 
-// Open invitation logic
+// Logic buka undangan
 const openBtn = document.getElementById("openBtn");
 const cover = document.getElementById("cover");
 const mainContent = document.getElementById("mainContent");
@@ -68,11 +68,11 @@ openBtn.addEventListener("click", () => {
     .catch(() => {
       musicPlaying = false;
       musicToggle.textContent = "Music: Off";
-      console.log("Music file missing or browser blocked playback.");
+      console.log("File musik belum ada atau browser memblokir autoplay.");
     });
 });
 
-// Music toggle
+// Toggle musik
 musicToggle.addEventListener("click", () => {
   if (!musicPlaying) {
     music.play()
@@ -81,7 +81,7 @@ musicToggle.addEventListener("click", () => {
         musicToggle.textContent = "Music: On";
       })
       .catch(() => {
-        console.log("Music file missing or browser blocked playback.");
+        console.log("File musik belum ada atau browser memblokir playback.");
       });
   } else {
     music.pause();
@@ -90,8 +90,8 @@ musicToggle.addEventListener("click", () => {
   }
 });
 
-// Countdown
-const targetDate = new Date(`${WEDDING_DATE}T${WEDDING_TIME}`).getTime();
+// Countdown WIB
+const targetDate = new Date(`${WEDDING_DATE}T${WEDDING_TIME}+07:00`).getTime();
 
 function updateCountdown() {
   const now = new Date().getTime();
@@ -119,7 +119,7 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// RSVP demo submit
+// Submit RSVP demo
 const rsvpForm = document.getElementById("rsvpForm");
 const rsvpStatus = document.getElementById("rsvpStatus");
 
@@ -145,7 +145,7 @@ rsvpForm.addEventListener("submit", function (event) {
   });
 });
 
-// Scroll reveal animation
+// Animasi scroll
 const fadeElements = document.querySelectorAll(".fade-section");
 
 const observer = new IntersectionObserver((entries) => {
