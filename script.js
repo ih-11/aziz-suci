@@ -1,5 +1,5 @@
 const DEFAULT_GUEST = "Bapak / Ibu / Saudara / i";
-const WEDDING_DATE = "2026-06-01";
+const WEDDING_DATE = "2026-06-02";
 const WEDDING_TIME = "08:00:00";
 
 // Format tanggal Indonesia
