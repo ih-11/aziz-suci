@@ -1,5 +1,8 @@
 const DEFAULT_GUEST = "Bapak / Ibu / Saudara / i";
-const WEDDING_DATE = "2026-06-02";
+
+const AKAD_DATE = "2026-06-02";
+const RESEPSI_DATE = "2026-06-03";
+
 const WEDDING_TIME = "08:00:00";
 
 // Format tanggal Indonesia
@@ -28,6 +31,7 @@ function getGuestName() {
 
 // Terapkan nama tamu
 const guestName = getGuestName();
+
 document.getElementById("guest-name").textContent = guestName;
 document.getElementById("guest-name-inline").textContent = guestName;
 document.getElementById("footer-guest-name").textContent = guestName;
@@ -37,10 +41,12 @@ if (guestName !== DEFAULT_GUEST) {
 }
 
 // Terapkan tanggal Indonesia
-const tanggalFormatted = formatTanggalIndonesia(WEDDING_DATE);
-document.getElementById("cover-date").textContent = tanggalFormatted;
-document.getElementById("akad-date").textContent = tanggalFormatted;
-document.getElementById("resepsi-date").textContent = tanggalFormatted;
+const akadFormatted = formatTanggalIndonesia(AKAD_DATE);
+const resepsiFormatted = formatTanggalIndonesia(RESEPSI_DATE);
+
+document.getElementById("cover-date").textContent = akadFormatted;
+document.getElementById("akad-date").textContent = akadFormatted;
+document.getElementById("resepsi-date").textContent = resepsiFormatted;
 
 // Logic buka undangan
 const openBtn = document.getElementById("openBtn");
@@ -57,7 +63,11 @@ openBtn.addEventListener("click", () => {
   setTimeout(() => {
     cover.style.display = "none";
     mainContent.classList.remove("hidden");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }, 800);
 
   music.play()
@@ -68,47 +78,73 @@ openBtn.addEventListener("click", () => {
     .catch(() => {
       musicPlaying = false;
       musicToggle.textContent = "Music: Off";
-      console.log("File musik belum ada atau browser memblokir autoplay.");
+
+      console.log(
+        "File musik belum ada atau browser memblokir autoplay."
+      );
     });
 });
 
 // Toggle musik
 musicToggle.addEventListener("click", () => {
+
   if (!musicPlaying) {
+
     music.play()
       .then(() => {
         musicPlaying = true;
         musicToggle.textContent = "Music: On";
       })
       .catch(() => {
-        console.log("File musik belum ada atau browser memblokir playback.");
+        console.log(
+          "File musik belum ada atau browser memblokir playback."
+        );
       });
+
   } else {
+
     music.pause();
     musicPlaying = false;
     musicToggle.textContent = "Music: Off";
+
   }
 });
 
 // Countdown WIB
-const targetDate = new Date(`${WEDDING_DATE}T${WEDDING_TIME}+07:00`).getTime();
+const targetDate = new Date(
+  `${AKAD_DATE}T${WEDDING_TIME}+07:00`
+).getTime();
 
 function updateCountdown() {
+
   const now = new Date().getTime();
   const distance = targetDate - now;
 
   if (distance <= 0) {
+
     document.getElementById("days").textContent = "0";
     document.getElementById("hours").textContent = "0";
     document.getElementById("minutes").textContent = "0";
     document.getElementById("seconds").textContent = "0";
+
     return;
   }
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((distance / (1000 * 60)) % 60);
-  const seconds = Math.floor((distance / 1000) % 60);
+  const days = Math.floor(
+    distance / (1000 * 60 * 60 * 24)
+  );
+
+  const hours = Math.floor(
+    (distance / (1000 * 60 * 60)) % 24
+  );
+
+  const minutes = Math.floor(
+    (distance / (1000 * 60)) % 60
+  );
+
+  const seconds = Math.floor(
+    (distance / 1000) % 60
+  );
 
   document.getElementById("days").textContent = days;
   document.getElementById("hours").textContent = hours;
@@ -117,6 +153,7 @@ function updateCountdown() {
 }
 
 updateCountdown();
+
 setInterval(updateCountdown, 1000);
 
 // Submit RSVP demo
@@ -124,14 +161,28 @@ const rsvpForm = document.getElementById("rsvpForm");
 const rsvpStatus = document.getElementById("rsvpStatus");
 
 rsvpForm.addEventListener("submit", function (event) {
+
   event.preventDefault();
 
-  const name = document.getElementById("rsvpName").value.trim();
-  const attendance = document.getElementById("attendance").value;
-  const message = document.getElementById("message").value.trim();
+  const name = document
+    .getElementById("rsvpName")
+    .value
+    .trim();
+
+  const attendance = document
+    .getElementById("attendance")
+    .value;
+
+  const message = document
+    .getElementById("message")
+    .value
+    .trim();
 
   if (!name) {
-    rsvpStatus.textContent = "Silakan isi nama terlebih dahulu.";
+
+    rsvpStatus.textContent =
+      "Silakan isi nama terlebih dahulu.";
+
     return;
   }
 
@@ -149,11 +200,17 @@ rsvpForm.addEventListener("submit", function (event) {
 const fadeElements = document.querySelectorAll(".fade-section");
 
 const observer = new IntersectionObserver((entries) => {
+
   entries.forEach((entry) => {
+
     if (entry.isIntersecting) {
       entry.target.classList.add("show");
     }
+
   });
-}, { threshold: 0.2 });
+
+}, {
+  threshold: 0.2
+});
 
 fadeElements.forEach((el) => observer.observe(el));
