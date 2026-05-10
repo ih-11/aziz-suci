@@ -1,8 +1,7 @@
 from pathlib import Path
 from urllib.parse import quote
 
-BASE_URL = "https://ha-ibnu.github.io/aziz-suci/"   # use this for testing first
-# BASE_URL = "https://aziz-suci-invitation.pages.dev/"   # use later after deploy
+BASE_URL = "https://ih-11.github.io/aziz-suci/"
 
 guest_file = Path("guests.txt")
 output_file = Path("generated_links.csv")
@@ -12,6 +11,7 @@ if not guest_file.exists():
     raise SystemExit(1)
 
 names = []
+
 with guest_file.open("r", encoding="utf-8") as f:
     for line in f:
         name = line.strip()
@@ -27,7 +27,7 @@ with output_file.open("w", encoding="utf-8") as f:
 
         message = (
             f"Halo {name},\n\n"
-            f"Kami mengundang Anda ke acara pernikahan kami.\n\n"
+            f"Kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan kami.\n\n"
             f"Silakan buka undangan melalui link berikut:\n"
             f"{invitation_link}\n\n"
             f"Terima kasih."
