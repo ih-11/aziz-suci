@@ -90,8 +90,6 @@ body::before {
   display: none;
 }
 
-/* COVER */
-
 .cover {
   min-height: 100vh;
   display: flex;
@@ -353,6 +351,57 @@ body::before {
 
 .rsvp-form textarea {
   min-height: 140px;
+}
+
+/* GUESTBOOK */
+
+.guestbook-section {
+  margin-top: 48px;
+}
+
+.guestbook-header h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 30px;
+}
+
+.guestbook-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.guestbook-item {
+  background: rgba(255,255,255,0.55);
+  border-radius: 24px;
+  padding: 24px;
+  backdrop-filter: blur(14px);
+}
+
+.guestbook-name {
+  font-family: "Playfair Display", serif;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.guestbook-attendance {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.06);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.guestbook-message {
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.guestbook-empty {
+  color: var(--muted);
+  line-height: 1.8;
 }
 
 .footer {
