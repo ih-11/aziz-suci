@@ -5,9 +5,9 @@ const RESEPSI_DATE = "2026-06-03";
 
 const WEDDING_TIME = "08:00:00";
 
-// Format tanggal Indonesia
 function formatTanggalIndonesia(dateString) {
-  const date = new Date(dateString);
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
 
   return date.toLocaleDateString("id-ID", {
     weekday: "long",
