@@ -5,8 +5,13 @@ const RESEPSI_DATE = "2026-06-03";
 
 const WEDDING_TIME = "08:00:00";
 
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbx-9zt-P7oW8LU7a_a6NJlA8YmQTqnRLzFuxPyVsJHCmZEcXbj3M2x8OMBR9_vcz7muJQ/exec";
+
 function formatTanggalIndonesia(dateString) {
-  const [year, month, day] = dateString.split("-").map(Number);
+
+  const [year, month, day] =
+    dateString.split("-").map(Number);
 
   const date = new Date(year, month - 1, day);
 
@@ -21,7 +26,8 @@ function formatTanggalIndonesia(dateString) {
 // Ambil nama tamu dari URL
 function getGuestName() {
 
-  const params = new URLSearchParams(window.location.search);
+  const params =
+    new URLSearchParams(window.location.search);
 
   const name = params.get("to");
 
@@ -35,37 +41,51 @@ function getGuestName() {
 // Terapkan nama tamu
 const guestName = getGuestName();
 
-document.getElementById("guest-name").textContent = guestName;
+document.getElementById("guest-name").textContent =
+  guestName;
 
-document.getElementById("guest-name-inline").textContent = guestName;
+document.getElementById("guest-name-inline").textContent =
+  guestName;
 
-document.getElementById("footer-guest-name").textContent = guestName;
+document.getElementById("footer-guest-name").textContent =
+  guestName;
 
 if (guestName !== DEFAULT_GUEST) {
-  document.getElementById("rsvpName").value = guestName;
+  document.getElementById("rsvpName").value =
+    guestName;
 }
 
 // Terapkan tanggal Indonesia
-const akadFormatted = formatTanggalIndonesia(AKAD_DATE);
+const akadFormatted =
+  formatTanggalIndonesia(AKAD_DATE);
 
-const resepsiFormatted = formatTanggalIndonesia(RESEPSI_DATE);
+const resepsiFormatted =
+  formatTanggalIndonesia(RESEPSI_DATE);
 
-document.getElementById("cover-date").textContent = akadFormatted;
+document.getElementById("cover-date").textContent =
+  akadFormatted;
 
-document.getElementById("akad-date").textContent = akadFormatted;
+document.getElementById("akad-date").textContent =
+  akadFormatted;
 
-document.getElementById("resepsi-date").textContent = resepsiFormatted;
+document.getElementById("resepsi-date").textContent =
+  resepsiFormatted;
 
 // Logic buka undangan
-const openBtn = document.getElementById("openBtn");
+const openBtn =
+  document.getElementById("openBtn");
 
-const cover = document.getElementById("cover");
+const cover =
+  document.getElementById("cover");
 
-const mainContent = document.getElementById("mainContent");
+const mainContent =
+  document.getElementById("mainContent");
 
-const music = document.getElementById("bgMusic");
+const music =
+  document.getElementById("bgMusic");
 
-const musicToggle = document.getElementById("musicToggle");
+const musicToggle =
+  document.getElementById("musicToggle");
 
 let musicPlaying = false;
 
@@ -91,18 +111,16 @@ openBtn.addEventListener("click", () => {
 
       musicPlaying = true;
 
-      musicToggle.textContent = "Music: On";
+      musicToggle.textContent =
+        "Music: On";
 
     })
     .catch(() => {
 
       musicPlaying = false;
 
-      musicToggle.textContent = "Music: Off";
-
-      console.log(
-        "File musik belum ada atau browser memblokir autoplay."
-      );
+      musicToggle.textContent =
+        "Music: Off";
 
     });
 
@@ -118,14 +136,8 @@ musicToggle.addEventListener("click", () => {
 
         musicPlaying = true;
 
-        musicToggle.textContent = "Music: On";
-
-      })
-      .catch(() => {
-
-        console.log(
-          "File musik belum ada atau browser memblokir playback."
-        );
+        musicToggle.textContent =
+          "Music: On";
 
       });
 
@@ -135,13 +147,14 @@ musicToggle.addEventListener("click", () => {
 
     musicPlaying = false;
 
-    musicToggle.textContent = "Music: Off";
+    musicToggle.textContent =
+      "Music: Off";
 
   }
 
 });
 
-// Countdown WIB
+// Countdown
 const targetDate = new Date(
   `${AKAD_DATE}T${WEDDING_TIME}+07:00`
 ).getTime();
@@ -181,34 +194,48 @@ function updateCountdown() {
     (distance / 1000) % 60
   );
 
-  document.getElementById("days").textContent = days;
+  document.getElementById("days").textContent =
+    days;
 
-  document.getElementById("hours").textContent = hours;
+  document.getElementById("hours").textContent =
+    hours;
 
-  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("minutes").textContent =
+    minutes;
 
-  document.getElementById("seconds").textContent = seconds;
+  document.getElementById("seconds").textContent =
+    seconds;
 }
 
 updateCountdown();
 
 setInterval(updateCountdown, 1000);
 
-// RSVP + Guestbook
-const rsvpForm = document.getElementById("rsvpForm");
+// Guestbook
+const rsvpForm =
+  document.getElementById("rsvpForm");
 
-const rsvpStatus = document.getElementById("rsvpStatus");
+const rsvpStatus =
+  document.getElementById("rsvpStatus");
 
-const guestbookList = document.getElementById("guestbookList");
+const guestbookList =
+  document.getElementById("guestbookList");
 
-function createGuestbookItem(name, attendance, message) {
+function createGuestbookItem(
+  name,
+  attendance,
+  message
+) {
 
-  const item = document.createElement("div");
+  const item =
+    document.createElement("div");
 
   item.classList.add("guestbook-item");
 
   item.innerHTML = `
-    <h4 class="guestbook-name">${name}</h4>
+    <h4 class="guestbook-name">
+      ${name}
+    </h4>
 
     <span class="guestbook-attendance">
       ${attendance}
@@ -222,75 +249,145 @@ function createGuestbookItem(name, attendance, message) {
   return item;
 }
 
-rsvpForm.addEventListener("submit", function (event) {
+// Load existing guestbook
+async function loadGuestbook() {
 
-  event.preventDefault();
+  try {
 
-  const name = document
-    .getElementById("rsvpName")
-    .value
-    .trim();
+    const response =
+      await fetch(API_URL);
 
-  const attendance = document
-    .getElementById("attendance")
-    .value;
+    const data =
+      await response.json();
 
-  const message = document
-    .getElementById("message")
-    .value
-    .trim();
+    guestbookList.innerHTML = "";
 
-  if (!name) {
+    if (data.length === 0) {
 
-    rsvpStatus.textContent =
-      "Silakan isi nama terlebih dahulu.";
+      guestbookList.innerHTML = `
+        <p class="guestbook-empty">
+          Belum ada ucapan.
+        </p>
+      `;
 
-    return;
-  }
-
-  if (!message) {
-
-    rsvpStatus.textContent =
-      "Silakan isi ucapan terlebih dahulu.";
-
-    return;
-  }
-
-  const emptyText = document.querySelector(".guestbook-empty");
-
-  if (emptyText) {
-    emptyText.remove();
-  }
-
-  const newItem = createGuestbookItem(
-    name,
-    attendance,
-    message
-  );
-
-  guestbookList.prepend(newItem);
-
-  rsvpStatus.textContent =
-    `Terima kasih, ${name}. Ucapan Anda berhasil dikirim.`;
-
-  document.getElementById("message").value = "";
-});
-
-// Animasi scroll
-const fadeElements = document.querySelectorAll(".fade-section");
-
-const observer = new IntersectionObserver((entries) => {
-
-  entries.forEach((entry) => {
-
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
+      return;
     }
 
+    data.forEach((item) => {
+
+      const guestItem =
+        createGuestbookItem(
+          item.name,
+          item.attendance,
+          item.message
+        );
+
+      guestbookList.appendChild(
+        guestItem
+      );
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+loadGuestbook();
+
+// Submit RSVP
+rsvpForm.addEventListener(
+  "submit",
+  async function (event) {
+
+    event.preventDefault();
+
+    const name =
+      document.getElementById("rsvpName")
+      .value
+      .trim();
+
+    const attendance =
+      document.getElementById("attendance")
+      .value;
+
+    const message =
+      document.getElementById("message")
+      .value
+      .trim();
+
+    if (!name) {
+
+      rsvpStatus.textContent =
+        "Silakan isi nama.";
+
+      return;
+    }
+
+    if (!message) {
+
+      rsvpStatus.textContent =
+        "Silakan isi ucapan.";
+
+      return;
+    }
+
+    rsvpStatus.textContent =
+      "Mengirim ucapan...";
+
+    try {
+
+      await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          attendance,
+          message
+        })
+      });
+
+      rsvpStatus.textContent =
+        "Ucapan berhasil dikirim.";
+
+      document.getElementById("message")
+        .value = "";
+
+      loadGuestbook();
+
+    } catch (error) {
+
+      rsvpStatus.textContent =
+        "Gagal mengirim ucapan.";
+
+      console.error(error);
+
+    }
+
+  }
+);
+
+// Animasi scroll
+const fadeElements =
+  document.querySelectorAll(".fade-section");
+
+const observer =
+  new IntersectionObserver((entries) => {
+
+    entries.forEach((entry) => {
+
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+
+    });
+
+  }, {
+    threshold: 0.2
   });
 
-}, {
-  threshold: 0.2
-});
-
-fadeElements.forEach((el) => observer.observe(el));
+fadeElements.forEach((el) =>
+  observer.observe(el)
+);
