@@ -7,6 +7,7 @@ const WEDDING_TIME = "08:00:00";
 
 function formatTanggalIndonesia(dateString) {
   const [year, month, day] = dateString.split("-").map(Number);
+
   const date = new Date(year, month - 1, day);
 
   return date.toLocaleDateString("id-ID", {
@@ -19,7 +20,9 @@ function formatTanggalIndonesia(dateString) {
 
 // Ambil nama tamu dari URL
 function getGuestName() {
+
   const params = new URLSearchParams(window.location.search);
+
   const name = params.get("to");
 
   if (name && name.trim() !== "") {
@@ -33,7 +36,9 @@ function getGuestName() {
 const guestName = getGuestName();
 
 document.getElementById("guest-name").textContent = guestName;
+
 document.getElementById("guest-name-inline").textContent = guestName;
+
 document.getElementById("footer-guest-name").textContent = guestName;
 
 if (guestName !== DEFAULT_GUEST) {
@@ -42,47 +47,65 @@ if (guestName !== DEFAULT_GUEST) {
 
 // Terapkan tanggal Indonesia
 const akadFormatted = formatTanggalIndonesia(AKAD_DATE);
+
 const resepsiFormatted = formatTanggalIndonesia(RESEPSI_DATE);
 
 document.getElementById("cover-date").textContent = akadFormatted;
+
 document.getElementById("akad-date").textContent = akadFormatted;
+
 document.getElementById("resepsi-date").textContent = resepsiFormatted;
 
 // Logic buka undangan
 const openBtn = document.getElementById("openBtn");
+
 const cover = document.getElementById("cover");
+
 const mainContent = document.getElementById("mainContent");
+
 const music = document.getElementById("bgMusic");
+
 const musicToggle = document.getElementById("musicToggle");
 
 let musicPlaying = false;
 
 openBtn.addEventListener("click", () => {
+
   cover.classList.add("fade-out");
 
   setTimeout(() => {
+
     cover.style.display = "none";
+
     mainContent.classList.remove("hidden");
 
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
+
   }, 800);
 
   music.play()
     .then(() => {
+
       musicPlaying = true;
+
       musicToggle.textContent = "Music: On";
+
     })
     .catch(() => {
+
       musicPlaying = false;
+
       musicToggle.textContent = "Music: Off";
 
       console.log(
         "File musik belum ada atau browser memblokir autoplay."
       );
+
     });
+
 });
 
 // Toggle musik
@@ -92,22 +115,30 @@ musicToggle.addEventListener("click", () => {
 
     music.play()
       .then(() => {
+
         musicPlaying = true;
+
         musicToggle.textContent = "Music: On";
+
       })
       .catch(() => {
+
         console.log(
           "File musik belum ada atau browser memblokir playback."
         );
+
       });
 
   } else {
 
     music.pause();
+
     musicPlaying = false;
+
     musicToggle.textContent = "Music: Off";
 
   }
+
 });
 
 // Countdown WIB
@@ -118,13 +149,17 @@ const targetDate = new Date(
 function updateCountdown() {
 
   const now = new Date().getTime();
+
   const distance = targetDate - now;
 
   if (distance <= 0) {
 
     document.getElementById("days").textContent = "0";
+
     document.getElementById("hours").textContent = "0";
+
     document.getElementById("minutes").textContent = "0";
+
     document.getElementById("seconds").textContent = "0";
 
     return;
@@ -147,8 +182,11 @@ function updateCountdown() {
   );
 
   document.getElementById("days").textContent = days;
+
   document.getElementById("hours").textContent = hours;
+
   document.getElementById("minutes").textContent = minutes;
+
   document.getElementById("seconds").textContent = seconds;
 }
 
@@ -156,9 +194,33 @@ updateCountdown();
 
 setInterval(updateCountdown, 1000);
 
-// Submit RSVP demo
+// RSVP + Guestbook
 const rsvpForm = document.getElementById("rsvpForm");
+
 const rsvpStatus = document.getElementById("rsvpStatus");
+
+const guestbookList = document.getElementById("guestbookList");
+
+function createGuestbookItem(name, attendance, message) {
+
+  const item = document.createElement("div");
+
+  item.classList.add("guestbook-item");
+
+  item.innerHTML = `
+    <h4 class="guestbook-name">${name}</h4>
+
+    <span class="guestbook-attendance">
+      ${attendance}
+    </span>
+
+    <p class="guestbook-message">
+      ${message}
+    </p>
+  `;
+
+  return item;
+}
 
 rsvpForm.addEventListener("submit", function (event) {
 
@@ -186,14 +248,32 @@ rsvpForm.addEventListener("submit", function (event) {
     return;
   }
 
-  rsvpStatus.textContent =
-    `Terima kasih, ${name}. Kehadiran Anda tercatat sebagai "${attendance}" pada demo ini.`;
+  if (!message) {
 
-  console.log({
+    rsvpStatus.textContent =
+      "Silakan isi ucapan terlebih dahulu.";
+
+    return;
+  }
+
+  const emptyText = document.querySelector(".guestbook-empty");
+
+  if (emptyText) {
+    emptyText.remove();
+  }
+
+  const newItem = createGuestbookItem(
     name,
     attendance,
     message
-  });
+  );
+
+  guestbookList.prepend(newItem);
+
+  rsvpStatus.textContent =
+    `Terima kasih, ${name}. Ucapan Anda berhasil dikirim.`;
+
+  document.getElementById("message").value = "";
 });
 
 // Animasi scroll
