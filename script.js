@@ -9,7 +9,6 @@ const API_URL =
   "https://script.google.com/macros/s/AKfycbx-9zt-P7oW8LU7a_a6NJlA8YmQTqnRLzFuxPyVsJHCmZEcXbj3M2x8OMBR9_vcz7muJQ/exec";
 
 function formatTanggalIndonesia(dateString) {
-
   const [year, month, day] =
     dateString.split("-").map(Number);
 
@@ -23,9 +22,7 @@ function formatTanggalIndonesia(dateString) {
   });
 }
 
-// Ambil nama tamu dari URL
 function getGuestName() {
-
   const params =
     new URLSearchParams(window.location.search);
 
@@ -38,7 +35,6 @@ function getGuestName() {
   return DEFAULT_GUEST;
 }
 
-// Terapkan nama tamu
 const guestName = getGuestName();
 
 document.getElementById("guest-name").textContent =
@@ -55,7 +51,6 @@ if (guestName !== DEFAULT_GUEST) {
     guestName;
 }
 
-// Terapkan tanggal Indonesia
 const akadFormatted =
   formatTanggalIndonesia(AKAD_DATE);
 
@@ -68,10 +63,12 @@ document.getElementById("cover-date").textContent =
 document.getElementById("akad-date").textContent =
   akadFormatted;
 
-document.getElementById("resepsi-date").textContent =
+document.getElementById("resepsi-pria-date").textContent =
   resepsiFormatted;
 
-// Logic buka undangan
+document.getElementById("resepsi-wanita-date").textContent =
+  resepsiFormatted;
+
 const openBtn =
   document.getElementById("openBtn");
 
@@ -90,91 +87,56 @@ const musicToggle =
 let musicPlaying = false;
 
 openBtn.addEventListener("click", () => {
-
   cover.classList.add("fade-out");
 
   setTimeout(() => {
-
     cover.style.display = "none";
-
     mainContent.classList.remove("hidden");
 
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
-
   }, 800);
 
   music.play()
     .then(() => {
-
       musicPlaying = true;
-
-      musicToggle.textContent =
-        "Music: On";
-
+      musicToggle.textContent = "Music: On";
     })
     .catch(() => {
-
       musicPlaying = false;
-
-      musicToggle.textContent =
-        "Music: Off";
-
+      musicToggle.textContent = "Music: Off";
     });
-
 });
 
-// Toggle musik
 musicToggle.addEventListener("click", () => {
-
   if (!musicPlaying) {
-
     music.play()
       .then(() => {
-
         musicPlaying = true;
-
-        musicToggle.textContent =
-          "Music: On";
-
+        musicToggle.textContent = "Music: On";
       });
-
   } else {
-
     music.pause();
-
     musicPlaying = false;
-
-    musicToggle.textContent =
-      "Music: Off";
-
+    musicToggle.textContent = "Music: Off";
   }
-
 });
 
-// Countdown
 const targetDate = new Date(
   `${AKAD_DATE}T${WEDDING_TIME}+07:00`
 ).getTime();
 
 function updateCountdown() {
-
   const now = new Date().getTime();
-
   const distance = targetDate - now;
 
   if (distance <= 0) {
-
     document.getElementById("days").textContent = "0";
-
     document.getElementById("hours").textContent = "0";
-
     document.getElementById("minutes").textContent = "0";
-
     document.getElementById("seconds").textContent = "0";
-
     return;
   }
 
@@ -194,24 +156,15 @@ function updateCountdown() {
     (distance / 1000) % 60
   );
 
-  document.getElementById("days").textContent =
-    days;
-
-  document.getElementById("hours").textContent =
-    hours;
-
-  document.getElementById("minutes").textContent =
-    minutes;
-
-  document.getElementById("seconds").textContent =
-    seconds;
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = hours;
+  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("seconds").textContent = seconds;
 }
 
 updateCountdown();
-
 setInterval(updateCountdown, 1000);
 
-// Guestbook
 const rsvpForm =
   document.getElementById("rsvpForm");
 
@@ -221,12 +174,7 @@ const rsvpStatus =
 const guestbookList =
   document.getElementById("guestbookList");
 
-function createGuestbookItem(
-  name,
-  attendance,
-  message
-) {
-
+function createGuestbookItem(name, attendance, message) {
   const item =
     document.createElement("div");
 
@@ -249,11 +197,8 @@ function createGuestbookItem(
   return item;
 }
 
-// Load existing guestbook
 async function loadGuestbook() {
-
   try {
-
     const response =
       await fetch(API_URL);
 
@@ -263,18 +208,15 @@ async function loadGuestbook() {
     guestbookList.innerHTML = "";
 
     if (data.length === 0) {
-
       guestbookList.innerHTML = `
         <p class="guestbook-empty">
           Belum ada ucapan.
         </p>
       `;
-
       return;
     }
 
     data.forEach((item) => {
-
       const guestItem =
         createGuestbookItem(
           item.name,
@@ -282,27 +224,18 @@ async function loadGuestbook() {
           item.message
         );
 
-      guestbookList.appendChild(
-        guestItem
-      );
-
+      guestbookList.appendChild(guestItem);
     });
-
   } catch (error) {
-
     console.error(error);
-
   }
-
 }
 
 loadGuestbook();
 
-// Submit RSVP
 rsvpForm.addEventListener(
   "submit",
   async function (event) {
-
     event.preventDefault();
 
     const name =
@@ -320,18 +253,14 @@ rsvpForm.addEventListener(
       .trim();
 
     if (!name) {
-
       rsvpStatus.textContent =
         "Silakan isi nama.";
-
       return;
     }
 
     if (!message) {
-
       rsvpStatus.textContent =
         "Silakan isi ucapan.";
-
       return;
     }
 
@@ -339,7 +268,6 @@ rsvpForm.addEventListener(
       "Mengirim ucapan...";
 
     try {
-
       await fetch(API_URL, {
         method: "POST",
         body: JSON.stringify({
@@ -352,38 +280,28 @@ rsvpForm.addEventListener(
       rsvpStatus.textContent =
         "Ucapan berhasil dikirim.";
 
-      document.getElementById("message")
-        .value = "";
+      document.getElementById("message").value = "";
 
       loadGuestbook();
-
     } catch (error) {
-
       rsvpStatus.textContent =
         "Gagal mengirim ucapan.";
 
       console.error(error);
-
     }
-
   }
 );
 
-// Animasi scroll
 const fadeElements =
   document.querySelectorAll(".fade-section");
 
 const observer =
   new IntersectionObserver((entries) => {
-
     entries.forEach((entry) => {
-
       if (entry.isIntersecting) {
         entry.target.classList.add("show");
       }
-
     });
-
   }, {
     threshold: 0.2
   });
