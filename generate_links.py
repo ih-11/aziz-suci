@@ -1,5 +1,6 @@
 from pathlib import Path
 from urllib.parse import quote
+import csv
 
 BASE_URL = "https://ih-11.github.io/aziz-suci/"
 
@@ -18,28 +19,15 @@ with guest_file.open("r", encoding="utf-8") as f:
         if name:
             names.append(name)
 
-with output_file.open("w", encoding="utf-8") as f:
-    f.write("name,link,message,wa_share_link\n")
+with output_file.open("w", encoding="utf-8", newline="") as f:
+    writer = csv.writer(f)
+
+    writer.writerow(["name", "link"])
 
     for name in names:
         encoded_name = quote(name)
         invitation_link = f"{BASE_URL}?to={encoded_name}"
 
-        message = (
-            f"Halo {name},\n\n"
-            f"Kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan kami.\n\n"
-            f"Silakan buka undangan melalui link berikut:\n"
-            f"{invitation_link}\n\n"
-            f"Terima kasih."
-        )
-
-        wa_share_link = f"https://wa.me/?text={quote(message)}"
-
-        f.write(
-            f"\"{name}\","
-            f"\"{invitation_link}\","
-            f"\"{message}\","
-            f"\"{wa_share_link}\"\n"
-        )
+        writer.writerow([name, invitation_link])
 
 print(f"Done. Generated {len(names)} links in {output_file}")
