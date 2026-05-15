@@ -78,4 +78,4 @@ Wassalamualaikum Warahmatullahi Wabarakatuh"""
 
 print(
     f"Done. Generated {len(names)} links in {output_file}"
-)
+) 
